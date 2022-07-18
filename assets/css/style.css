@@ -26,9 +26,9 @@ body {
 }
 
 .row {
-  white-space: pre-wrap;
   height: 80px;
   border-top: 1px solid white;
+  white-space: pre-wrap;
 }
 
 /* .time-block {
@@ -38,9 +38,9 @@ body {
 
 .hour {
   color: #000000;
+  text-align: center;
   background-color: #ffffff;
   border-top: 1px dashed #000000;
-  text-align: center;
 }
 
 .past {
