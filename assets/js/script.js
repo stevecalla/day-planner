@@ -17,3 +17,4 @@ let timeBlockContainer = $('#container');
 
 
 //section:functions and event handlers go here 👇
+$('.alert').alert(close)
