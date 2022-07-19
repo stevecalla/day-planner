@@ -1,8 +1,8 @@
 let date = new Date;
-let currentDay = $('#currentDay');
-currentDay.text(date);
+
 
 //section:query selector va*riables go here 👇
+let currentDay = $('#currentDay');
 let saveIconButton = $('*#save-button');
 let activityInput = $('*#activityInput');
 
@@ -84,10 +84,12 @@ let activityInput = $('*#activityInput');
   // RENDER STYLING WHEN DOCUMENT LOADS & BASED ON INTERVAL WHEN HOUR CHANGES
   $(document).ready(function() {
     console.log( "document loaded" );
-    renderActivityStyle();
     getFromStorage();
+    setHeaderDateTime();
+    renderActivityStyle();
 
     let checkHour = setInterval(() => {
+      setHeaderDateTime();
       renderActivityStyle();
     }, 1000);
     // clearInterval(checkHour);
@@ -96,6 +98,11 @@ let activityInput = $('*#activityInput');
     //     console.log( "window loaded" );
     // });
   });
+
+  function setHeaderDateTime() {
+    // currentDay.text(date);
+    currentDay.text(moment().format("dddd, MMMM Do hh:mm:ss"))
+  }
 
   // LOCAL STORAGE FUNCTIONS
   function saveToStorage() {
