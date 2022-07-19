@@ -34,14 +34,22 @@
       <p id="currentDay" class="lead"></p>
     </header>
 
-    <div class="alert alert-light alert-dismissible fade show text-center m-0" id="alert" role="alert">
-      Appointment Added to <span style="color: darkgreen">localStorage ✅</span>
+    <!-- Alert components -->
+    <div class="alert alert-info alert-dismissible fade show text-center m-0 col-8 pr-0 mx-auto" id="alert" role="alert">
+      Appointment Added to <span style="color: red">localStorage ✅</span>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-
+    <div class="alert alert-info alert-dismissible fade show text-center m-0 col-8 pr-0 mx-auto" id="alert" role="alert">
+      Appointment Removed from <span style="color: red">localStorage ✅</span>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
     <div class="container-fluid mt-4">
+
       <!-- Timeblocks go here -->
       <div class="row flex-nowrap">
         <p class="hour col-2 col-sm-2 col-md-1 m-0 p-0">9am</p>
