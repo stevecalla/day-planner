@@ -24,8 +24,8 @@ let saveIconButton = $('#save-button');
 //section:functions and event handlers go here 👇
   // SAVE BUTTON
   function saveActivity(event) {
-    saveToStorage();
     if ($('#alert').hasClass("cloak")) { //prevents multiple clicks thus timers while alert is displayed
+      saveToStorage();
       console.log('click');
       toggleAlertVisibility();
       renderAlertMessageAndIcon(event);
