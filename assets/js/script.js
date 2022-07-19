@@ -7,7 +7,8 @@ currentDay.text(date);
 // let timeBlockContainer = $('#container');
 // let saveIconButton = document.getElementById('save-button');
 let saveIconButton = $('*#save-button');
-// console.log(saveIconButton);
+let activityInput = $('*#activityInput');
+// console.log(activityInput.attr('data-hour'));
 
 //section:global variables go here 👇
 
@@ -26,13 +27,14 @@ let saveIconButton = $('*#save-button');
   // SAVE BUTTON
   function saveActivity(event) {
     if ($('#alert').hasClass("cloak")) { //prevents multiple clicks thus timers while alert is displayed
-      console.log($(event.target).attr('data-hour'));
+      // console.log($(event.target).attr('data-hour'));
       saveToStorage();
       toggleAlertVisibility();
       renderAlertMessageAndIcon(event);
       renderSaveIconCheckmark(event)
       hideAlert();
       hideSaveIconCheckmark(event);
+      renderActivityStyle(event);
     }
     // $(saveIconButton).off("click");
   }
@@ -59,6 +61,19 @@ let saveIconButton = $('*#save-button');
 
   function renderSaveIconCheckmark(event) {
     $(event.target).attr('src', "./assets/images/save-checkmark.png");
+  }
+
+  function renderActivityStyle(event) {
+    activityInput.each(function( index, element ) {
+      console.log( index + element + ": " + $( this ).addClass('future') );
+      // console.log($(index).attr('data-hour'));
+      // console.log($(this).attr('data-hour'))
+      // console.log($('#activityInput').attr('data-hour'))
+      $(this).attr('data-hour') === "10" ? $(this).addClass('future') : $(this).addClass('present')
+
+    });
+
+    // $('*#activityInput').attr('data-hour') === "10" ? $('*#activityInput').addClass('future') : console.log('no')
   }
   
   function hideAlert(event) {
