@@ -65,15 +65,12 @@ let activityInput = $('*#activityInput');
 
   function renderActivityStyle(event) {
     activityInput.each(function( index, element ) {
-      console.log( index + element + ": " + $( this ).addClass('future') );
-      // console.log($(index).attr('data-hour'));
-      // console.log($(this).attr('data-hour'))
-      // console.log($('#activityInput').attr('data-hour'))
-      $(this).attr('data-hour') === "10" ? $(this).addClass('future') : $(this).addClass('present')
-
+      console.log(index);
+      console.log($(element).attr('data-hour') === "10");
+      $(element).attr('data-hour') === "10" ? $(this).addClass('future') : $(this).addClass('present');
+      // $(this).attr('data-hour') === "10" ? $(this).addClass('future') : $(this).addClass('present');
     });
-
-    // $('*#activityInput').attr('data-hour') === "10" ? $('*#activityInput').addClass('future') : console.log('no')
+    
   }
   
   function hideAlert(event) {
