@@ -15,12 +15,12 @@ $(saveIconButton).on('click', saveActivity)
 
 //functions and event handlers go here 👇
 
-// On load functions
+// ON LOAD FUNCTIONS
 $(document).ready(function() {
   console.log( "document loaded" );
-  let getStorage = getFromStorage();
-  setHeaderDateTime();
-  renderToTextArea();
+  let activitiesFromLocalStorage = getFromStorage();
+  renderHeaderDateTime();
+  renderStorageToTextArea(activitiesFromLocalStorage);
   renderActivityStyle();
 
   // let checkHour = setInterval(() => {
@@ -34,12 +34,14 @@ $(document).ready(function() {
   // });
 });
 
-function setHeaderDateTime() {
-  currentDay.text(moment().format("dddd, MMMM Do hh:mm:ss"))
+function renderHeaderDateTime() {
+  currentDay.text(moment().format("dddd, MMMM Do [at] h:mm:ss a"))
 }
 
-function renderToTextArea() {
-
+function renderStorageToTextArea(activitiesFromLocalStorage) {
+  activityInput.each( function(index, element) {
+    $(element).val(activitiesFromLocalStorage[index]);
+  });
 }
 
 // SAVE BUTTON
@@ -56,6 +58,21 @@ function saveActivity(event) {
     // renderActivityStyle(event);
   }
   // $(saveIconButton).off("click");
+}
+
+// RENDER ACTIVITY PAST, PRESENT, FUTURE STYLE
+function renderActivityStyle() {
+  let dateNow = moment(); //determine current date
+  let date_time = "";
+  // console.log(moment(dateNow).format("hh:mm:ss"));
+  activityInput.each(function( index, element ) {
+    date_time = moment(dateNow).set({'hour': $(element).attr('data-hour'), 'minute': $(element).attr('data-minutes')}); //append hour to current date 
+
+    //if hour before current hour style grey, if hour same as current hour style red else style green
+    moment(date_time, "H").isSame(dateNow, "H") ? ($(element).removeClass('past'), $(element).addClass('present'), $(element).removeClass('future')) : 
+    moment(date_time).isBefore(dateNow) ? ($(element).addClass('past'), $(element).removeClass('present'), $(element).removeClass('future')) : 
+    ($(element).removeClass('past'), $(element).removeClass('present'), $(element).addClass('future'))
+  });
 }
 
 // ALERT FUNCTIONS
@@ -92,21 +109,6 @@ function hideSaveIconCheckmark(event) {
   setTimeout(() => {
     $(event.target).attr('src', "./assets/images/save-no-checkmark.png");
   }, 500);
-}
-
-// RENDER ACTIVITY PAST, PRESENT, FUTURE STYLE
-function renderActivityStyle() {
-  let dateNow = moment(); //determine current date
-  let date_time = "";
-  // console.log(moment(dateNow).format("hh:mm:ss"));
-  activityInput.each(function( index, element ) {
-    date_time = moment(dateNow).set({'hour': $(element).attr('data-hour'), 'minute': $(element).attr('data-minutes')}); //append hour to current date 
-
-    //if hour before current hour style grey, if hour same as current hour style red else style green
-    moment(date_time, "H").isSame(dateNow, "H") ? ($(element).removeClass('past'), $(element).addClass('present'), $(element).removeClass('future')) : 
-    moment(date_time).isBefore(dateNow) ? ($(element).addClass('past'), $(element).removeClass('present'), $(element).removeClass('future')) : 
-    ($(element).removeClass('past'), $(element).removeClass('present'), $(element).addClass('future'))
-  });
 }
 
 // LOCAL STORAGE FUNCTIONS
