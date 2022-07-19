@@ -3,10 +3,11 @@ let currentDay = $('#currentDay');
 currentDay.text(date);
 
 
-//section:query selector variables go here 👇
+//section:query selector va*riables go here 👇
 // let timeBlockContainer = $('#container');
 // let saveIconButton = document.getElementById('save-button');
-let saveIconButton = $('#save-button');
+let saveIconButton = $('*#save-button');
+// console.log(saveIconButton);
 
 //section:global variables go here 👇
 
@@ -25,8 +26,8 @@ let saveIconButton = $('#save-button');
   // SAVE BUTTON
   function saveActivity(event) {
     if ($('#alert').hasClass("cloak")) { //prevents multiple clicks thus timers while alert is displayed
+      console.log($(event.target).attr('data-hour'));
       saveToStorage();
-      console.log('click');
       toggleAlertVisibility();
       renderAlertMessageAndIcon(event);
       renderSaveIconCheckmark(event)
@@ -63,13 +64,13 @@ let saveIconButton = $('#save-button');
   function hideAlert(event) {
     setTimeout(() => {
       toggleAlertVisibility();
-    }, 2000);
+    }, 500);
   }
 
   function hideSaveIconCheckmark(event) {
     setTimeout(() => {
       $(event.target).attr('src', "./assets/images/save-no-checkmark.png");
-    }, 2000);
+    }, 500);
   }
 
   // LOCAL STORAGE FUNCTIONS
