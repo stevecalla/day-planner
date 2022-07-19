@@ -79,18 +79,18 @@ let activityInput = $('*#activityInput');
       moment(date_time).isBefore(dateNow) ? ($(element).addClass('past'), $(element).removeClass('present'), $(element).removeClass('future')) : 
       ($(element).removeClass('past'), $(element).removeClass('present'), $(element).addClass('future'))
     });
-     
   }
 
   // RENDER STYLING WHEN DOCUMENT LOADS & BASED ON INTERVAL WHEN HOUR CHANGES
   $(document).ready(function() {
     console.log( "document loaded" );
     renderActivityStyle();
-    // let checkHour = setInterval(() => {
-    //   renderActivityStyle();
-    // }, 1000);
-    // clearInterval(checkHour);
+    getFromStorage();
 
+    let checkHour = setInterval(() => {
+      renderActivityStyle();
+    }, 1000);
+    // clearInterval(checkHour);
 
     // $( window ).on( "load", function() {
     //     console.log( "window loaded" );
@@ -99,7 +99,14 @@ let activityInput = $('*#activityInput');
 
   // LOCAL STORAGE FUNCTIONS
   function saveToStorage() {
-    // TBD
+    let activitesList = [];
+    let activity = "";
+    //decison made to save all changes made by user rather than just for the button clicked
+    activityInput.each(function( index, element ) {
+      activity = $(element).val();
+      activitesList.push(activity);
+      localStorage.setItem('dayPlannerActivities', JSON.stringify(activitesList));
+    })
   }
 
   function removeFromStoraget() {
@@ -107,7 +114,11 @@ let activityInput = $('*#activityInput');
   }
 
   function getFromStorage() {
-    // TBD
+    let retrievedActivities = JSON.parse(localStorage.getItem('dayPlannerActivities'));
+    activityInput.each(function( index, element ) {
+      console.log(retrievedActivities[index]);
+      $(element).val(retrievedActivities[index]);
+    })
   }
 
 
