@@ -83,3 +83,11 @@ textarea {
 .saveIcon {
   width: 28px;
 }
+
+.hide {
+  display: none;
+}
+
+.cloak {
+  visibility: hidden;
+}

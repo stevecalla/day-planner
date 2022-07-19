@@ -35,27 +35,21 @@
     </header>
 
     <!-- Alert components -->
-    <div class="alert alert-info alert-dismissible fade show text-center m-0 col-8 pr-0 mx-auto" id="alert" role="alert">
-      Appointment Added to <span style="color: red">localStorage ✅</span>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="alert alert-info alert-dismissible fade show text-center m-0 col-8 pr-0 mx-auto" id="alert" role="alert">
-      Appointment Removed from <span style="color: red">localStorage ✅</span>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="alert alert-info text-center m-1 col-8 pr-0 mx-auto cloak" id="alert" role="alert">
+      Appointment Saved to <span style="color: red">localStorage ✅</span>
     </div>
     
-    <div class="container-fluid mt-4">
+    <div class="container-fluid my-0">
 
       <!-- Timeblocks go here -->
+
       <div class="row flex-nowrap">
         <p class="hour col-2 col-sm-2 col-md-1 m-0 p-0">9am</p>
         <textarea class='past col-8 col-sm-8 col-md-10' name="" id="" cols="1" rows="1"></textarea>        
-        <button class="saveBtn col-2 col-sm-2 col-md-1"><img class='saveIcon' src="./assets/images/save-no-checkmark.png" alt="Save activity"></button>
+        <button class="saveBtn col-2 col-sm-2 col-md-1"><img class='saveIcon' id='save-button' data-status="not-saved" src="./assets/images/save-no-checkmark.png" alt="Save activity"></button>
       </div>
+
+
       <div class="row flex-nowrap">
         <p class="hour col-2 col-sm-2 col-md-1 m-0 p-0">10am</p>
         <textarea class='past col-8 col-sm-8 col-md-10' name="" id="" cols="1" rows="1"></textarea>        
