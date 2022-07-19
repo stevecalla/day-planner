@@ -3,18 +3,10 @@ let currentDay = $('#currentDay');
 currentDay.text(date);
 
 //section:query selector va*riables go here 👇
-// let timeBlockContainer = $('#container');
-// let saveIconButton = document.getElementById('save-button');
 let saveIconButton = $('*#save-button');
 let activityInput = $('*#activityInput');
-// console.log(activityInput.attr('data-hour'));
 
 //section:global variables go here 👇
-
-//create timeblocks
-// let hourOfDay = "<p>";
-// let event = "<input>";
-// let saveButton = "<p>";
 
 //section:event listeners go here 👇
   $(saveIconButton).on('click', saveActivity)
@@ -33,7 +25,7 @@ let activityInput = $('*#activityInput');
       renderSaveIconCheckmark(event)
       hideAlert();
       hideSaveIconCheckmark(event);
-      renderActivityStyle(event);
+      // renderActivityStyle(event);
     }
     // $(saveIconButton).off("click");
   }
@@ -83,11 +75,19 @@ let activityInput = $('*#activityInput');
   function renderActivityStyle() {
     let dateNow = moment(); //determine current date
     let date_time = "";
+    console.log(moment(dateNow).format("hh:mm:ss"));
     activityInput.each(function( index, element ) {
-      date_time = moment(dateNow).set({'hour': $(element).attr('data-hour'), 'minute': 0, 'second': 0}); //append hour to current date
+      date_time = moment(dateNow).set({'hour': $(element).attr('data-hour'), 'minute': $(element).attr('data-minutes')}); //append hour to current date 
+      // date_time = moment(dateNow).set({'hour': $(element).attr('data-hour'), 'minute': 13, 'second': 0}); //append hour to current date
       //if hour before current hour style grey, if hour same as current hour style red else style green
-      moment(date_time, "H").isBefore(dateNow, "H") ? $(element).addClass('past') : moment(date_time, "H").isSame(dateNow, "H") ? $(element).addClass('present') : $(element).addClass('future')
-      });
+      // moment(date_time, "H").isBefore(dateNow, "H") ? $(element).addClass('past') : 
+      //   moment(date_time, "H").isSame(dateNow, "H") ? $(element).addClass('present') : 
+      //   $(element).addClass('future')
+
+      moment(date_time, "H").isSame(dateNow, "H") ? ($(element).removeClass('past'), $(element).addClass('present'), $(element).removeClass('future')) : 
+      moment(date_time).isBefore(dateNow) ? ($(element).addClass('past'), $(element).removeClass('present'), $(element).removeClass('future')) : 
+      ($(element).removeClass('past'), $(element).removeClass('present'), $(element).addClass('future'))
+    });
       
   }
 
@@ -103,6 +103,19 @@ let activityInput = $('*#activityInput');
   function getFromStorage() {
     // TBD
   }
+
+  $(document).ready(function() {
+    console.log( "document loaded" );
+    renderActivityStyle();
+    // let checkHour = setInterval(() => {
+    //   renderActivityStyle();
+    // }, 1000);
+    // clearInterval(checkHour);
+});
+
+$( window ).on( "load", function() {
+    console.log( "window loaded" );
+});
 
 
 
