@@ -5,6 +5,7 @@ let date = new Date;
 let currentDay = $('#currentDay');
 let saveIconButton = $('*#save-button');
 let activityInput = $('*#activityInput');
+// console.log(activityInput)
 
 //section:global variables go here 👇
 
