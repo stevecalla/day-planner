@@ -67,29 +67,35 @@ let activityInput = $('*#activityInput');
   }
 
   // RENDER ACTIVITY PAST, PRESENT, FUTURE STYLE
-  // setInterval(() => {
-  //   console.log()
-    
-  // }, interval);
-
   function renderActivityStyle() {
     let dateNow = moment(); //determine current date
     let date_time = "";
     console.log(moment(dateNow).format("hh:mm:ss"));
     activityInput.each(function( index, element ) {
       date_time = moment(dateNow).set({'hour': $(element).attr('data-hour'), 'minute': $(element).attr('data-minutes')}); //append hour to current date 
-      // date_time = moment(dateNow).set({'hour': $(element).attr('data-hour'), 'minute': 13, 'second': 0}); //append hour to current date
-      //if hour before current hour style grey, if hour same as current hour style red else style green
-      // moment(date_time, "H").isBefore(dateNow, "H") ? $(element).addClass('past') : 
-      //   moment(date_time, "H").isSame(dateNow, "H") ? $(element).addClass('present') : 
-      //   $(element).addClass('future')
 
+      //if hour before current hour style grey, if hour same as current hour style red else style green
       moment(date_time, "H").isSame(dateNow, "H") ? ($(element).removeClass('past'), $(element).addClass('present'), $(element).removeClass('future')) : 
       moment(date_time).isBefore(dateNow) ? ($(element).addClass('past'), $(element).removeClass('present'), $(element).removeClass('future')) : 
       ($(element).removeClass('past'), $(element).removeClass('present'), $(element).addClass('future'))
     });
-      
+     
   }
+
+  // RENDER STYLING WHEN DOCUMENT LOADS & BASED ON INTERVAL WHEN HOUR CHANGES
+  $(document).ready(function() {
+    console.log( "document loaded" );
+    renderActivityStyle();
+    // let checkHour = setInterval(() => {
+    //   renderActivityStyle();
+    // }, 1000);
+    // clearInterval(checkHour);
+
+
+    // $( window ).on( "load", function() {
+    //     console.log( "window loaded" );
+    // });
+  });
 
   // LOCAL STORAGE FUNCTIONS
   function saveToStorage() {
@@ -104,18 +110,7 @@ let activityInput = $('*#activityInput');
     // TBD
   }
 
-  $(document).ready(function() {
-    console.log( "document loaded" );
-    renderActivityStyle();
-    // let checkHour = setInterval(() => {
-    //   renderActivityStyle();
-    // }, 1000);
-    // clearInterval(checkHour);
-});
 
-$( window ).on( "load", function() {
-    console.log( "window loaded" );
-});
 
 
 
