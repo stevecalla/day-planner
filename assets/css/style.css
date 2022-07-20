@@ -67,6 +67,14 @@ textarea {
   padding: 10px;
 }
 
+.saveAllBtn {
+  /* border-left: 1px solid black;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px; */
+  background-color: #06aed5;
+  /* color: white; */
+}
+
 .saveBtn {
   border-left: 1px solid black;
   border-top-right-radius: 15px;
@@ -75,10 +83,11 @@ textarea {
   color: white;
 }
 
-.saveBtn i:hover {
+/* .saveBtn:hover {
   font-size: 20px;
+  background-color: red;
   transition: all 0.3s ease-in-out;
-}
+} */
 
 .saveIcon {
   width: 28px;
