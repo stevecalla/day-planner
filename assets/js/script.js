@@ -2,7 +2,6 @@
 let currentDay = $("#currentDay");
 let saveIconButton = $("*#save-button");
 let activityInputText = $("*#activityInput");
-// console.log(activityInput)
 
 //global variables go here 👇
 
@@ -95,7 +94,6 @@ function saveActivityToLocalStorage(event) {
   activityList = getActivtyListFromLocalStorage();
 
   activityInputText.each(function (index, element) {
-    // console.log($(event.target).attr("data-hour"), $(element).attr('data-hour'));
     activity = $(element).val();
     if (
       $(event.target).attr("data-hour") === $(element).attr("data-hour") &&
@@ -104,7 +102,6 @@ function saveActivityToLocalStorage(event) {
       //replace activity list with input value
       activityList.splice(index, 1, activity);
     } else if (activityList.length < 10) {
-      console.log(activity, $(element).val());
       activityList.push(activity);
     }
   });
