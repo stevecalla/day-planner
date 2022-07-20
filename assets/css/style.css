@@ -1,10 +1,15 @@
 * {
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 :root {
   --text-white: white;
   --text-black: black;
+
+  --bg-white: white;
+  --bg-black: black;
+
+  --border-black: black;
 }
 
 body {
@@ -16,9 +21,9 @@ body {
 .jumbotron {
   text-align: center;
   background-color: transparent;
-  color: black;
+  color: var(--text-black);
   border-radius: 0;
-  border-bottom: 10px solid black;
+  border-bottom: 10px solid var(--border-black);
 }
 
 .description {
@@ -27,20 +32,15 @@ body {
 
 .row {
   height: 80px;
-  border-top: 1px solid white;
+  border-top: 1px solid var(--text-white);
   white-space: pre-wrap;
 }
 
-/* .time-block {
-  text-align: center;
-  border-radius: 15px;
-} */
-
 .hour {
-  color: #000000;
+  color: var(--text-black);
   text-align: center;
-  background-color: #ffffff;
-  border-top: 1px dashed #000000;
+  background-color: var(--bg-white);
+  border-top: 1px dashed var(--border-black);
 }
 
 .past {
@@ -62,32 +62,24 @@ textarea {
   background: transparent;
   border: none;
   resize: none;
-  color: #000000;
-  border-left: 1px solid black;
+  color: var(--text-black);
+  border-left: 1px solid var(--border-black);
   padding: 10px;
+  user-select: all;
 }
 
-.saveAllBtn {
-  /* border-left: 1px solid black;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px; */
-  background-color: #06aed5;
-  /* color: white; */
+textarea::selection {
+  color: var(--text-white);
+  background-color: blue;
 }
 
 .saveBtn {
-  border-left: 1px solid black;
+  border-left: 1px solid var(--border-black);
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   background-color: #06aed5;
-  color: white;
+  color: var(--text-white);
 }
-
-/* .saveBtn:hover {
-  font-size: 20px;
-  background-color: red;
-  transition: all 0.3s ease-in-out;
-} */
 
 .saveIcon {
   width: 28px;
