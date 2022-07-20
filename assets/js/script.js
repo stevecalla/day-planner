@@ -6,26 +6,29 @@ let activityInputText = $("*#activityInput");
 //global variables go here 👇
 
 //event listeners go here 👇
-$(saveIconButton).on("click", saveActivity);
+$(saveIconButton).on("click", saveActivityButton);
 
 //jQuery Interactions 👇
 
 //functions and event handlers go here 👇
 // ON LOAD FUNCTIONS
 $(document).ready(function () {
+  //get activities from local storage
   let activitiesFromLocalStorage = getActivtyListFromLocalStorage();
   renderLocalStorageToTextArea(activitiesFromLocalStorage);
+
+  //render text and date/clock to the screen
   renderTextAreaStyle();
   renderDateTimeInHeader();
 
-  let checkHour = setInterval(() => {
-    renderDateTimeInHeader();
-    renderTextAreaStyle();
-  }, 1000);
+  //start timer for the clock in the header and to determine past, present, future styles
+  startClockAndStylesTimer();
 
-  storeLoginDate(); //used to clear storage if user login the next day
+  // store login date to determine if calendar activities should be cleared on load
+  storeLoginDate();
 });
 
+// RENDER CLOCK IN HEADER & ACTIVITES FROM LOCAL STORAGE
 function renderDateTimeInHeader() {
   currentDay.text(moment().format("dddd, MMMM Do [at] h:mm:ss a"));
 }
@@ -34,17 +37,6 @@ function renderLocalStorageToTextArea(activitiesFromLocalStorage) {
   activityInputText.each(function (index, element) {
     $(element).val(activitiesFromLocalStorage[index]);
   });
-}
-
-// SAVE BUTTON
-function saveActivity(event) {
-  if ($("#alert").hasClass("cloak")) {
-    //prevents multiple clicks thus timers while alert is displayed
-    saveActivityToLocalStorage(event);
-    toggleAlertVisibility();
-    renderSavedIconCheckmark(event);
-    hideSavedAlertAndCheckmarkIcon(event);
-  }
 }
 
 // RENDER ACTIVITY PAST, PRESENT, FUTURE STYLE
@@ -73,6 +65,25 @@ function renderTextAreaStyle() {
   });
 }
 
+// TIMER
+function startClockAndStylesTimer() {
+  let checkHour = setInterval(() => {
+    renderDateTimeInHeader();
+    renderTextAreaStyle();
+  }, 1000);
+}
+
+// SAVE BUTTON(S)
+function saveActivityButton(event) {
+  if ($("#alert").hasClass("cloak")) {
+    //prevents multiple clicks thus timers while alert is displayed
+    saveActivityToLocalStorage(event);
+    toggleAlertVisibility();
+    renderSavedIconCheckmark(event);
+    hideSavedAlertAndCheckmarkIcon(event);
+  }
+}
+
 // ALERT FUNCTIONS
 function toggleAlertVisibility() {
   $("#alert").toggleClass("cloak");
@@ -91,7 +102,7 @@ function hideSavedAlertAndCheckmarkIcon(event) {
 
 // LOCAL STORAGE FUNCTIONS
 function saveActivityToLocalStorage(event) {
-  activityList = getActivtyListFromLocalStorage();
+  let activityList = getActivtyListFromLocalStorage();
 
   activityInputText.each(function (index, element) {
     activity = $(element).val();
