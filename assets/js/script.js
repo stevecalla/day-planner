@@ -14,7 +14,7 @@ $(saveIconButton).on('click', saveActivity)
 //functions and event handlers go here 👇
 // ON LOAD FUNCTIONS
 $(document).ready(function() {
-  let activitiesFromLocalStorage = getFromStorage();
+  let activitiesFromLocalStorage = getActivtyListFromLocalStorage();
   renderDateTimeInHeader();
   renderLocalStorageToTextArea(activitiesFromLocalStorage);
   renderTextAreaStyle();
@@ -23,6 +23,8 @@ $(document).ready(function() {
     renderDateTimeInHeader();
     renderTextAreaStyle();
   }, 1000);
+
+  storeLoginDate(); //used to clear storage if user login the next day
 });
 
 function renderDateTimeInHeader() {
@@ -38,7 +40,7 @@ function renderLocalStorageToTextArea(activitiesFromLocalStorage) {
 // SAVE BUTTON
 function saveActivity(event) {
   if ($('#alert').hasClass("cloak")) { //prevents multiple clicks thus timers while alert is displayed
-    saveTargetToLocalStorage(event);
+    saveActivityToLocalStorage(event);
     toggleAlertVisibility();
     renderSavedIconCheckmark(event)
     hideSavedAlertAndCheckmarkIcon(event);
@@ -76,8 +78,8 @@ function hideSavedAlertAndCheckmarkIcon(event) {
 }
 
 // LOCAL STORAGE FUNCTIONS
-function saveTargetToLocalStorage(event) {
-  activityList = getFromStorage();
+function saveActivityToLocalStorage(event) {
+  activityList = getActivtyListFromLocalStorage();
 
   activityInputText.each( function(index, element) {
     // console.log($(event.target).attr("data-hour"), $(element).attr('data-hour'));
@@ -93,11 +95,21 @@ function saveTargetToLocalStorage(event) {
   localStorage.setItem('dayPlannerActivities', JSON.stringify(activityList));
 }
 
-function removeFromStoraget() {
-  // TBD
+function storeLoginDate() {
+  let lastLogInDate = moment().format('YYYY-MM-DD');
+  localStorage.setItem('dayPlannerLastLogInDate', lastLogInDate);
+  clearLocalStorage(lastLogInDate); //clear storage if current login !== prior login date
 }
 
-function getFromStorage() {
+function clearLocalStorage(lastLogInDate) { ///clear storage if current login !== prior login date
+  let currentLoginDate = moment().format('YYYY-MM-DD');
+  if (lastLogInDate !== currentLoginDate) {
+    localStorage.removeItem('dayPlannerActivities');
+    localStorage.setItem('dayPlannerLastLogInDate', currentLoginDate);
+  }
+}
+
+function getActivtyListFromLocalStorage() {
   let activityList = [];
 
   activityList = JSON.parse(localStorage.getItem('dayPlannerActivities')) ? activityList = JSON.parse(localStorage.getItem('dayPlannerActivities')) : activityList = [];
