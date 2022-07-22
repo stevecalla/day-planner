@@ -1,6 +1,6 @@
 //query selector va*riables go here 👇
 let currentDay = $("#currentDay");
-let saveIconButton = $("*#save-button");
+let saveIconButton = $("*#saveBtn");
 let activityInputText = $("*#activityInput");
 
 //global variables go here 👇
@@ -90,13 +90,20 @@ function toggleAlertVisibility() {
 }
 
 function renderSavedIconCheckmark(event) {
-  $(event.target).attr("src", "./assets/images/save-checkmark.png");
+  event.target.matches("button")
+    ? $(event.target.children).attr("src", "./assets/images/save-checkmark.png")
+    : $(event.target).attr("src", "./assets/images/save-checkmark.png");
 }
 
 function hideSavedAlertAndCheckmarkIcon(event) {
   setTimeout(() => {
     toggleAlertVisibility();
-    $(event.target).attr("src", "./assets/images/save-no-checkmark.png");
+    event.target.matches("button")
+      ? $(event.target.children).attr(
+          "src",
+          "./assets/images/save-no-checkmark.png"
+        )
+      : $(event.target).attr("src", "./assets/images/save-no-checkmark.png");
   }, 1000);
 }
 
