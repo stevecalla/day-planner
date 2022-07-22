@@ -114,7 +114,9 @@ function saveActivityToLocalStorage(event) {
   activityInputText.each(function (index, element) {
     activity = $(element).val();
     if (
-      $(event.target).attr("data-hour") === $(element).attr("data-hour") &&
+      ($(event.target).attr("data-hour") === $(element).attr("data-hour") ||
+        $(event.target.children).attr("data-hour") ===
+          $(element).attr("data-hour")) &&
       activityList.length > 0
     ) {
       //replace activity list with input value
